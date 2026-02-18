@@ -1,0 +1,21 @@
+import { TConstructorIngredient, TIngredient, TOrder } from '@utils-types';
+
+export interface IBurgerConstructorState {
+  bun: TIngredient | null;
+  ingredients: TConstructorIngredient[];
+  error: string | null;
+}
+
+export interface IFeedState {
+  orders: TOrder[];
+  total: number;
+  totalToday: number;
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
+  error: string | null;
+}
+
+export interface IIngredientsState {
+  ingredients: TIngredient[];
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
+  error: string | null;
+}
