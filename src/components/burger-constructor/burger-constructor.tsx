@@ -6,6 +6,13 @@ import {
   selectBurgerConstructor,
   clearBurgerConstructor
 } from '../../services/slices/burgerConstructor/burgerConstructorSlice';
+import {
+  selectLoading as selectOrderLoading,
+  selectOrderModalData,
+  selectIsOrderLoading as selectIsOrderCreating,
+  clearOrder
+} from '../../services/slices/order/orderSlice';
+import { createOrder } from '../../services/slices/order/thunks/createOrder';
 
 export const BurgerConstructor: FC = () => {
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
@@ -16,17 +23,26 @@ export const BurgerConstructor: FC = () => {
     ingredients: []
   };*/
   const { bun, ingredients } = useSelector(selectBurgerConstructor);
-  const orderRequest = false; //туду слайс
-  const orderModalData = null; // туду слайс
+  const orderRequest = useSelector(selectIsOrderCreating); //туду слайс
+  const orderModalData = useSelector(selectOrderModalData); // туду слайс
 
   const dispatch = useDispatch();
 
   const onOrderClick = () => {
     if (!bun || orderRequest) return; //туду слайс
+
+    const ingredientsIds = [
+      bun._id,
+      ...ingredients.map((ingredient) => ingredient._id),
+      bun._id
+    ];
+
+    dispatch(createOrder(ingredientsIds));
   };
 
   const closeOrderModal = () => {
     dispatch(clearBurgerConstructor());
+    dispatch(clearOrder());
   };
 
   /* const price = useMemo(
