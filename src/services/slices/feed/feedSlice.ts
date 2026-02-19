@@ -17,10 +17,14 @@ const feedSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchFeed.pending, (state) => {
-        state.loading = 'pending';
-        state.error = null;
-      })
+      .addCase(
+        fetchFeed.pending,
+        (state): IFeedState => ({
+          ...state,
+          loading: 'pending',
+          error: null
+        })
+      )
       .addCase(
         fetchFeed.fulfilled,
         (
@@ -30,18 +34,23 @@ const feedSlice = createSlice({
             total: number;
             totalToday: number;
           }>
-        ) => {
-          state.loading = 'succeeded';
-          state.orders = action.payload.orders;
-          state.total = action.payload.total;
-          state.totalToday = action.payload.totalToday;
-          state.error = null;
-        }
+        ): IFeedState => ({
+          ...state,
+          loading: 'succeeded',
+          orders: action.payload.orders,
+          total: action.payload.total,
+          totalToday: action.payload.totalToday,
+          error: null
+        })
       )
-      .addCase(fetchFeed.rejected, (state, action) => {
-        state.loading = 'failed';
-        state.error = action.error?.message || 'Ошибка загрузки ленты заказов';
-      });
+      .addCase(
+        fetchFeed.rejected,
+        (state, action): IFeedState => ({
+          ...state,
+          loading: 'failed',
+          error: action.error?.message || 'Ошибка загрузки ленты заказов'
+        })
+      );
   }
 });
 

@@ -1,12 +1,14 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import feedSlice from './slices/feed/feedSlice';
-import ingredientsSlice from './slices/ingredients/ingredientsSlice';
-import burgerConstructorSlice from './slices/burgerConstructor/burgerConstructorSlice';
+import feedSlice from '../services/slices/feed/feedSlice';
+import ingredientsSlice from '../services/slices/ingredients/ingredientsSlice';
+import burgerConstructorSlice from '../services/slices/burgerConstructor/burgerConstructorSlice';
+import orderSlice from '../services/slices/order/orderSlice';
 
 const rootReducer = combineReducers({
   feed: feedSlice.reducer,
   ingredients: ingredientsSlice.reducer,
-  burgerConstructor: burgerConstructorSlice.reducer
+  burgerConstructor: burgerConstructorSlice.reducer,
+  order: orderSlice.reducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

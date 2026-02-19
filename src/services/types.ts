@@ -1,3 +1,4 @@
+import { TNewOrderResponse } from '@api';
 import { TConstructorIngredient, TIngredient, TOrder } from '@utils-types';
 
 export interface IBurgerConstructorState {
@@ -16,6 +17,12 @@ export interface IFeedState {
 
 export interface IIngredientsState {
   ingredients: TIngredient[];
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
+  error: string | null;
+}
+
+export interface IOrderState {
+  orderModalData: TOrder | null;
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
   error: string | null;
 }

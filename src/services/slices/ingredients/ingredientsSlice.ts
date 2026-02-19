@@ -15,23 +15,31 @@ const ingredientsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchIngredients.pending, (state) => {
-        state.loading = 'pending';
-        state.error = null;
-      })
+      .addCase(
+        fetchIngredients.pending,
+        (state): IIngredientsState => ({
+          ...state,
+          loading: 'pending',
+          error: null
+        })
+      )
       .addCase(
         fetchIngredients.fulfilled,
-        (state, action: PayloadAction<TIngredient[]>) => {
-          state.loading = 'succeeded';
-          state.ingredients = action.payload;
-          state.error = null;
-        }
+        (state, action: PayloadAction<TIngredient[]>): IIngredientsState => ({
+          ...state,
+          loading: 'succeeded',
+          ingredients: action.payload,
+          error: null
+        })
       )
-      .addCase(fetchIngredients.rejected, (state, action) => {
-        state.loading = 'failed';
-        state.error =
-          (action.payload as string) || 'Ошибка загрузки ингредиентов';
-      });
+      .addCase(
+        fetchIngredients.rejected,
+        (state, action): IIngredientsState => ({
+          ...state,
+          loading: 'failed',
+          error: (action.payload as string) || 'Ошибка загрузки ингредиентов'
+        })
+      );
   },
   selectors: {
     selectIngredients: (state) => state.ingredients,
