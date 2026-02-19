@@ -3,6 +3,7 @@ import { IFeedState } from '../../types';
 import { fetchFeed } from './thunks/fetchFeed';
 import { TOrder } from '@utils-types';
 
+//туду подгрузку ордера одного
 const initialState = {
   orders: [],
   total: 0,
@@ -51,7 +52,19 @@ const feedSlice = createSlice({
           error: action.error?.message || 'Ошибка загрузки ленты заказов'
         })
       );
+  },
+  selectors: {
+    selectOrders: (state) => state.orders,
+    selectTotal: (state) => state.total,
+    selectTotalToday: (state) => state.totalToday,
+    selectFeedLoading: (state) => state.loading === 'pending'
   }
 });
 
+export const {
+  selectOrders,
+  selectTotal,
+  selectTotalToday,
+  selectFeedLoading
+} = feedSlice.selectors;
 export default feedSlice;
