@@ -13,13 +13,14 @@ import '../../index.css';
 import styles from './app.module.css';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
-import { Route, Routes, useMatch } from 'react-router-dom';
+import { Route, Routes, useMatch, useNavigate } from 'react-router-dom';
 import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
 import { fetchIngredients } from '../../services/slices/ingredients/thunks/fetchIngredients';
 
 const App = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const profileMatch = useMatch('/profile/orders/:number')?.params.number;
   const feedMatch = useMatch('/feed/:number')?.params.number;
@@ -28,7 +29,7 @@ const App = () => {
   useEffect(() => {
     dispatch(fetchIngredients());
   }, [dispatch]);
-
+  //туду разобраться с роутингом в минус один, пока заглушка
   return (
     <div className={styles.app}>
       <AppHeader />
@@ -55,7 +56,7 @@ const App = () => {
         <Route
           path='/ingredients/:id'
           element={
-            <Modal title='Детали ингредиента' onClose={() => {}}>
+            <Modal title='Детали ингредиента' onClose={() => navigate(-1)}>
               <IngredientDetails />
             </Modal>
           }
