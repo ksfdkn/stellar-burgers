@@ -1,5 +1,10 @@
 import { TNewOrderResponse } from '@api';
-import { TConstructorIngredient, TIngredient, TOrder } from '@utils-types';
+import {
+  TConstructorIngredient,
+  TIngredient,
+  TOrder,
+  TUser
+} from '@utils-types';
 
 export interface IBurgerConstructorState {
   bun: TIngredient | null;
@@ -23,6 +28,14 @@ export interface IIngredientsState {
 
 export interface IOrderState {
   orderModalData: TOrder | null;
+  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
+  error: string | null;
+}
+
+export interface IUserState {
+  user: TUser | null;
+  orders: TOrder[];
+  isAuth: boolean;
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
   error: string | null;
 }
