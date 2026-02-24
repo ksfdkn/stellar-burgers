@@ -17,6 +17,7 @@ import { Route, Routes, useMatch, useNavigate } from 'react-router-dom';
 import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
 import { fetchIngredients } from '../../services/slices/ingredients/thunks/fetchIngredients';
+import { fetchUser } from '../../services/slices/user/thunks';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,14 @@ const App = () => {
   useEffect(() => {
     dispatch(fetchIngredients());
   }, [dispatch]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('refreshToken');
+    if (token) {
+      dispatch(fetchUser());
+    }
+  }, [dispatch]);
+
   //туду разобраться с роутингом в минус один, пока заглушка
   return (
     <div className={styles.app}>
