@@ -23,13 +23,13 @@ export const BurgerConstructor: FC = () => {
     ingredients: []
   };*/
   const { bun, ingredients } = useSelector(selectBurgerConstructor);
-  const orderRequest = useSelector(selectIsOrderCreating); //туду слайс
-  const orderModalData = useSelector(selectOrderModalData); // туду слайс
+  const orderRequest = useSelector(selectIsOrderCreating);
+  const orderModalData = useSelector(selectOrderModalData);
 
   const dispatch = useDispatch();
 
   const onOrderClick = () => {
-    if (!bun || orderRequest) return; //туду слайс
+    if (!bun || orderRequest) return;
 
     const ingredientsIds = [
       bun._id,
