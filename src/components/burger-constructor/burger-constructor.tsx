@@ -7,28 +7,33 @@ import {
   clearBurgerConstructor
 } from '../../services/slices/burgerConstructor/burgerConstructorSlice';
 import {
-  selectLoading as selectOrderLoading,
   selectOrderModalData,
   selectIsOrderLoading as selectIsOrderCreating,
   clearOrder
 } from '../../services/slices/order/orderSlice';
 import { createOrder } from '../../services/slices/order/thunks/createOrder';
+import { selectIsAuth } from '../../services/slices/user/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
-  /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
-  /*const constructorItems = {
-    bun: {
-      price: 0
-    },
-    ingredients: []
-  };*/
+  /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора done */
   const { bun, ingredients } = useSelector(selectBurgerConstructor);
+
   const orderRequest = useSelector(selectIsOrderCreating);
   const orderModalData = useSelector(selectOrderModalData);
+  const isAuth = useSelector(selectIsAuth);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onOrderClick = () => {
+    if (!isAuth) {
+      navigate('/login', {
+        state: { from: '/' }
+      });
+      return;
+    }
+
     if (!bun || orderRequest) return;
 
     const ingredientsIds = [
@@ -45,15 +50,6 @@ export const BurgerConstructor: FC = () => {
     dispatch(clearOrder());
   };
 
-  /* const price = useMemo(
-     () =>
-       (constructorItems.bun ? constructorItems.bun.price * 2 : 0) +
-       constructorItems.ingredients.reduce(
-         (s: number, v: TConstructorIngredient) => s + v.price,
-         0
-       ),
-     [constructorItems]
-   );*/
   const price = useMemo(() => {
     const bunPrice = bun ? bun.price * 2 : 0;
     const ingredientsPrice = ingredients.reduce(
@@ -69,8 +65,6 @@ export const BurgerConstructor: FC = () => {
     bun,
     ingredients
   };
-
-  //return null;
 
   return (
     <BurgerConstructorUI

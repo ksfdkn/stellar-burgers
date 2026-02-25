@@ -5,11 +5,7 @@ import { selectUserData } from '../../services/slices/user/userSlice';
 import { updateUser } from '../../services/slices/user/thunks';
 
 export const Profile: FC = () => {
-  /** TODO: взять переменную из стора */
-  /* const user = {
-     name: '',
-     email: ''
-   };*/
+  /** TODO: взять переменную из стора done*/
   const dispatch = useDispatch();
   const user = useSelector(selectUserData);
 
@@ -36,11 +32,20 @@ export const Profile: FC = () => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
+    if (!isFormChanged) return;
+
     dispatch(updateUser(formValue));
+
+    setFormValue({
+      name: user?.name || '',
+      email: user?.email || '',
+      password: ''
+    });
   };
 
   const handleCancel = (e: SyntheticEvent) => {
     e.preventDefault();
+
     setFormValue({
       name: user?.name || '',
       email: user?.email || '',
@@ -64,6 +69,4 @@ export const Profile: FC = () => {
       handleInputChange={handleInputChange}
     />
   );
-
-  //return null;
 };

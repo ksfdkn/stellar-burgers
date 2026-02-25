@@ -20,8 +20,6 @@ export const Login: FC = () => {
   const loadingStatus = useSelector(selectLoadingUserStatus);
   const errorText = useSelector(selectUserError);
 
-  //const [email, setEmail] = useState('');
-  //const [password, setPassword] = useState('');
   const { values, handleChange, setValues } = useForm<TLoginData>({
     email: '',
     password: ''

@@ -2,13 +2,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IFeedState } from '../../types';
 import { fetchFeed } from './thunks/fetchFeed';
 import { TOrder } from '@utils-types';
+import { fetchOrderByNumber } from './thunks/fetchOrderByNumber';
 
 //туду подгрузку ордера одного
 const initialState = {
   orders: [],
+  currentOrder: null,
   total: 0,
   totalToday: 0,
   loading: 'idle',
+  orderLoading: 'idle',
   error: null
 } satisfies IFeedState as IFeedState;
 
@@ -18,6 +21,7 @@ const feedSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      //fetchFeed
       .addCase(
         fetchFeed.pending,
         (state): IFeedState => ({
@@ -51,10 +55,37 @@ const feedSlice = createSlice({
           loading: 'failed',
           error: action.error?.message || 'Ошибка загрузки ленты заказов'
         })
+      )
+      //fetchOrderByNumber
+      .addCase(
+        fetchOrderByNumber.pending,
+        (state): IFeedState => ({
+          ...state,
+          orderLoading: 'pending',
+          error: null
+        })
+      )
+      .addCase(
+        fetchOrderByNumber.fulfilled,
+        (state, action: PayloadAction<TOrder>): IFeedState => ({
+          ...state,
+          orderLoading: 'succeeded',
+          currentOrder: action.payload,
+          error: null
+        })
+      )
+      .addCase(
+        fetchOrderByNumber.rejected,
+        (state, action): IFeedState => ({
+          ...state,
+          orderLoading: 'failed',
+          error: action.payload as string
+        })
       );
   },
   selectors: {
     selectOrders: (state) => state.orders,
+    selectCurrentOrder: (state) => state.currentOrder,
     selectTotal: (state) => state.total,
     selectTotalToday: (state) => state.totalToday,
     selectFeedLoading: (state) => state.loading === 'pending'
@@ -63,6 +94,7 @@ const feedSlice = createSlice({
 
 export const {
   selectOrders,
+  selectCurrentOrder,
   selectTotal,
   selectTotalToday,
   selectFeedLoading

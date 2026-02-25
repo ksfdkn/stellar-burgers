@@ -10,7 +10,7 @@ import {
 import { NotFound404 } from '@pages';
 
 export const IngredientDetails: FC = () => {
-  /** TODO: взять переменную из стора */
+  /** TODO: взять переменную из стора done?*/
   const { id } = useParams();
   const ingredients = useSelector(selectIngredients);
   const loading = useSelector(selectIngredientsLoading);

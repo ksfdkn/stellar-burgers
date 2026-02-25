@@ -1,4 +1,3 @@
-import { TNewOrderResponse } from '@api';
 import {
   TConstructorIngredient,
   TIngredient,
@@ -14,9 +13,11 @@ export interface IBurgerConstructorState {
 
 export interface IFeedState {
   orders: TOrder[];
+  currentOrder: TOrder | null;
   total: number;
   totalToday: number;
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
+  orderLoading: 'idle' | 'pending' | 'succeeded' | 'failed';
   error: string | null;
 }
 

@@ -111,7 +111,8 @@ const userSlice = createSlice({
     selectIsAuth: (state: IUserState): boolean => state.isAuth,
     selectUserError: (state: IUserState): string | null => state.error,
     selectAuthLoading: (state: IUserState): boolean =>
-      state.loading === 'pending' && state.isAuth === false
+      state.loading === 'pending' && state.isAuth === false,
+    selectUserOrders: (state: IUserState): TOrder[] => state.orders
   }
 });
 
@@ -121,5 +122,6 @@ export const {
   selectLoadingUserStatus,
   selectIsAuth,
   selectUserError,
-  selectAuthLoading
+  selectAuthLoading,
+  selectUserOrders
 } = userSlice.selectors;
