@@ -5,14 +5,14 @@ import { OrderCardProps } from './type';
 import { TIngredient } from '@utils-types';
 import { OrderCardUI } from '../ui/order-card';
 import { useSelector } from '../../services/store';
-import { selectIngredients } from '../../services/slices/ingredients/ingredientsSlice';
+import { selectIngredients } from '../../services/slices/ingredients/selectors';
 
 const maxIngredients = 6;
 
 export const OrderCard: FC<OrderCardProps> = memo(({ order }) => {
   const location = useLocation();
 
-  /** TODO: взять переменную из стора */
+  /** TODO: взять переменную из стора done*/
   const ingredients: TIngredient[] = useSelector(selectIngredients);
 
   const orderInfo = useMemo(() => {

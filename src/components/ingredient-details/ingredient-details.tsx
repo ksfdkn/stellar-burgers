@@ -6,7 +6,7 @@ import { useSelector } from '../../services/store';
 import {
   selectIngredients,
   selectIngredientsLoading
-} from '../../services/slices/ingredients/ingredientsSlice';
+} from '../../services/slices/ingredients/selectors';
 import { NotFound404 } from '@pages';
 
 export const IngredientDetails: FC = () => {

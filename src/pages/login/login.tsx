@@ -3,10 +3,10 @@ import { LoginUI } from '@ui-pages';
 import { useDispatch, useSelector } from '../../services/store';
 import { useNavigate } from 'react-router-dom';
 import {
-  selectIsAuth,
   selectLoadingUserStatus,
+  selectIsAuth,
   selectUserError
-} from '../../services/slices/user/userSlice';
+} from '../../services/slices/user/selectors';
 import { useForm } from '../../hooks/useForm';
 import { TLoginData } from '@api';
 import { loginUser } from '../../services/slices/user/thunks';

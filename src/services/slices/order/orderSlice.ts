@@ -49,20 +49,8 @@ const orderSlice = createSlice({
           orderModalData: null
         })
       );
-  },
-  selectors: {
-    selectLoading: (state) => state.loading,
-    selectOrderModalData: (state) => state.orderModalData,
-    selectIsOrderLoading: (state) => state.loading === 'pending',
-    selectIsOrderSuccess: (state) => state.loading === 'succeeded'
   }
 });
 
 export const { clearOrder } = orderSlice.actions;
-export const {
-  selectLoading,
-  selectOrderModalData,
-  selectIsOrderLoading,
-  selectIsOrderSuccess
-} = orderSlice.selectors;
 export default orderSlice;

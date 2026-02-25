@@ -2,17 +2,15 @@ import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useSelector, useDispatch } from '../../services/store';
-import {
-  selectBurgerConstructor,
-  clearBurgerConstructor
-} from '../../services/slices/burgerConstructor/burgerConstructorSlice';
+import { clearBurgerConstructor } from '../../services/slices/burgerConstructor/burgerConstructorSlice';
+import { selectBurgerConstructor } from '../../services/slices/burgerConstructor/selectors';
+import { clearOrder } from '../../services/slices/order/orderSlice';
 import {
   selectOrderModalData,
-  selectIsOrderLoading as selectIsOrderCreating,
-  clearOrder
-} from '../../services/slices/order/orderSlice';
+  selectIsOrderLoading as selectIsOrderCreating
+} from '../../services/slices/order/selectors';
 import { createOrder } from '../../services/slices/order/thunks/createOrder';
-import { selectIsAuth } from '../../services/slices/user/userSlice';
+import { selectIsAuth } from '../../services/slices/user/selectors';
 import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {

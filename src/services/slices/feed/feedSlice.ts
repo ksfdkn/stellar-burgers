@@ -82,21 +82,7 @@ const feedSlice = createSlice({
           error: action.payload as string
         })
       );
-  },
-  selectors: {
-    selectOrders: (state) => state.orders,
-    selectCurrentOrder: (state) => state.currentOrder,
-    selectTotal: (state) => state.total,
-    selectTotalToday: (state) => state.totalToday,
-    selectFeedLoading: (state) => state.loading === 'pending'
   }
 });
 
-export const {
-  selectOrders,
-  selectCurrentOrder,
-  selectTotal,
-  selectTotalToday,
-  selectFeedLoading
-} = feedSlice.selectors;
 export default feedSlice;

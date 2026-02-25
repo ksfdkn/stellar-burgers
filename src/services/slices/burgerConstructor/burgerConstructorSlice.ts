@@ -96,7 +96,8 @@ const burgerConstructorSlice = createSlice({
       )
     }),
 
-    clearBurgerConstructor: (): IBurgerConstructorState => ({
+    clearBurgerConstructor: (state): IBurgerConstructorState => ({
+      ...state,
       bun: null,
       ingredients: [],
       error: null
@@ -108,7 +109,6 @@ const burgerConstructorSlice = createSlice({
 });
 
 export default burgerConstructorSlice;
-export const { selectBurgerConstructor } = burgerConstructorSlice.selectors;
 export const {
   clearBurgerConstructor,
   upIngredient,

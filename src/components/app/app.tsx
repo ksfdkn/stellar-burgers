@@ -24,9 +24,9 @@ import { useDispatch, useSelector } from '../../services/store';
 import { useEffect, useState } from 'react';
 import { fetchIngredients } from '../../services/slices/ingredients/thunks/fetchIngredients';
 import {
-  selectAuthLoading,
-  selectIsAuth
-} from '../../services/slices/user/userSlice';
+  selectIsAuth,
+  selectAuthLoading
+} from '../../services/slices/user/selectors';
 import { Preloader } from '@ui';
 import { PublicRoute } from '../public-route';
 import { ProtectedRoute } from '../protected-route';

@@ -40,13 +40,7 @@ const ingredientsSlice = createSlice({
           error: (action.payload as string) || 'Ошибка загрузки ингредиентов'
         })
       );
-  },
-  selectors: {
-    selectIngredients: (state) => state.ingredients,
-    selectIngredientsLoading: (state) => state.loading === 'pending'
   }
 });
 
 export default ingredientsSlice;
-export const { selectIngredients, selectIngredientsLoading } =
-  ingredientsSlice.selectors;

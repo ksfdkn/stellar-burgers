@@ -6,10 +6,9 @@ import { ResetPasswordUI } from '@ui-pages';
 import { useDispatch, useSelector } from '../../services/store';
 import { resetPassword } from '../../services/slices/user/thunks';
 import {
-  selectLoadingUserStatus,
-  selectUserError,
-  selectIsAuth
-} from '../../services/slices/user/userSlice';
+  selectIsAuth,
+  selectUserError
+} from '../../services/slices/user/selectors';
 
 export const ResetPassword: FC = () => {
   const navigate = useNavigate();
@@ -25,13 +24,6 @@ export const ResetPassword: FC = () => {
   const handleSubmit = async (e: SyntheticEvent<Element, Event>) => {
     e.preventDefault();
 
-    /*setError(null);
-    resetPasswordApi({ password, token })
-      .then(() => {
-        localStorage.removeItem('resetPassword');
-        navigate('/login');
-      })
-      .catch((err) => setError(err));*/
     await dispatch(resetPassword({ password, token })).unwrap();
 
     localStorage.removeItem('resetPassword');

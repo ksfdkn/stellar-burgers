@@ -3,10 +3,10 @@ import { RegisterUI } from '@ui-pages';
 import { useDispatch, useSelector } from '../../services/store';
 import { useNavigate } from 'react-router-dom';
 import {
-  selectIsAuth,
   selectLoadingUserStatus,
+  selectIsAuth,
   selectUserError
-} from '../../services/slices/user/userSlice';
+} from '../../services/slices/user/selectors';
 import { useForm } from '../../hooks/useForm';
 import { TRegisterData } from '@api';
 import { registerUser } from '../../services/slices/user/thunks';
@@ -20,9 +20,6 @@ export const Register: FC = () => {
   const loadingStatus = useSelector(selectLoadingUserStatus);
   const errorText = useSelector(selectUserError);
 
-  //const [userName, setUserName] = useState('');
-  //const [email, setEmail] = useState('');
-  //const [password, setPassword] = useState('');
   const { values, handleChange, setValues } = useForm<TRegisterData>({
     name: '',
     email: '',

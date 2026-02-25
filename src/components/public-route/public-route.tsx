@@ -1,9 +1,9 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useSelector } from '../../services/store';
 import {
-  selectAuthLoading,
-  selectIsAuth
-} from '../../services/slices/user/userSlice';
+  selectIsAuth,
+  selectAuthLoading
+} from '../../services/slices/user/selectors';
 import { Preloader } from '@ui';
 
 export const PublicRoute = ({ children }: { children: React.ReactNode }) => {

@@ -3,7 +3,7 @@ import { useSelector } from '../../services/store';
 import {
   selectIsAuth,
   selectAuthLoading
-} from '../../services/slices/user/userSlice';
+} from '../../services/slices/user/selectors';
 import { Preloader } from '@ui';
 
 export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
