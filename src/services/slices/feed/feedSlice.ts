@@ -4,7 +4,6 @@ import { fetchFeed } from './thunks/fetchFeed';
 import { TOrder } from '@utils-types';
 import { fetchOrderByNumber } from './thunks/fetchOrderByNumber';
 
-//туду подгрузку ордера одного
 const initialState = {
   orders: [],
   currentOrder: null,

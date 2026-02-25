@@ -21,7 +21,7 @@ import {
   useNavigate
 } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/store';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { fetchIngredients } from '../../services/slices/ingredients/thunks/fetchIngredients';
 import {
   selectIsAuth,
@@ -57,7 +57,6 @@ const App = () => {
     }
   }, [dispatch, isAuth, authLoading]);
 
-  //туду разобраться с роутингом в минус один, пока заглушка
   const mainContent = (
     <Routes location={background || location}>
       <Route path='/' element={<ConstructorPage />} />
