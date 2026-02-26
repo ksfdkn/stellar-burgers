@@ -42,7 +42,7 @@ export const logoutUser = createAsyncThunk(
     try {
       await logoutApi();
 
-      localStorage.removeItem('refreshToken');
+      //localStorage.removeItem('refreshToken');
       deleteCookie('accessToken');
     } catch (error: any) {
       return rejectWithValue(error.message || 'Ошибка выхода');
