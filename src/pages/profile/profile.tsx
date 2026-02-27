@@ -3,13 +3,15 @@ import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from '../../services/store';
 import { selectUserData } from '../../services/slices/user/selectors';
 import { updateUser } from '../../services/slices/user/thunks';
+import { useForm } from '../../hooks/useForm';
+import { TRegisterData } from '@api';
 
 export const Profile: FC = () => {
   /** TODO: взять переменную из стора done*/
   const dispatch = useDispatch();
   const user = useSelector(selectUserData);
 
-  const [formValue, setFormValue] = useState({
+  const { values, handleChange, setValues } = useForm<TRegisterData>({
     name: user?.name || '',
     email: user?.email || '',
     password: ''
@@ -17,26 +19,26 @@ export const Profile: FC = () => {
 
   useEffect(() => {
     if (user) {
-      setFormValue((prevState) => ({
+      setValues((prevState) => ({
         ...prevState,
         name: user?.name || '',
         email: user?.email || ''
       }));
     }
-  }, [user]);
+  }, [user, setValues]);
 
   const isFormChanged =
-    formValue.name !== user?.name ||
-    formValue.email !== user?.email ||
-    !!formValue.password;
+    values.name !== user?.name ||
+    values.email !== user?.email ||
+    !!values.password;
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     if (!isFormChanged) return;
 
-    dispatch(updateUser(formValue));
+    dispatch(updateUser(values));
 
-    setFormValue({
+    setValues({
       name: user?.name || '',
       email: user?.email || '',
       password: ''
@@ -46,27 +48,20 @@ export const Profile: FC = () => {
   const handleCancel = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    setFormValue({
+    setValues({
       name: user?.name || '',
       email: user?.email || '',
       password: ''
     });
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormValue((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value
-    }));
-  };
-
   return (
     <ProfileUI
-      formValue={formValue}
+      formValue={values}
       isFormChanged={isFormChanged}
       handleCancel={handleCancel}
       handleSubmit={handleSubmit}
-      handleInputChange={handleInputChange}
+      handleInputChange={handleChange}
     />
   );
 };
