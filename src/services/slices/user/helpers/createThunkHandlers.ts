@@ -1,11 +1,20 @@
-import { PayloadAction } from '@reduxjs/toolkit';
+import {
+  ActionReducerMapBuilder,
+  AsyncThunk,
+  PayloadAction
+} from '@reduxjs/toolkit';
 import type { IUserState } from '../../../types';
+import { AsyncThunkConfig } from '@reduxjs/toolkit/dist/createAsyncThunk';
 
 type LoadingStatus = 'idle' | 'pending' | 'succeeded' | 'failed';
 
-export const createThunkHandlers = <T>(
-  builder: any,
-  thunk: any,
+type RejectedAction = {
+  payload?: unknown;
+};
+
+export const createThunkHandlers = <T, ThunkArg extends unknown>(
+  builder: ActionReducerMapBuilder<IUserState>,
+  thunk: AsyncThunk<T, ThunkArg, AsyncThunkConfig>,
   onFulfilled?: (state: IUserState, action: PayloadAction<T>) => IUserState
 ) => {
   const setLoading = (
@@ -37,7 +46,13 @@ export const createThunkHandlers = <T>(
     )
     .addCase(
       thunk.rejected,
-      (state: IUserState, action: any): IUserState =>
-        setLoading(state, 'failed', action.payload as string)
+      (state: IUserState, action: RejectedAction): IUserState => {
+        const payload = action.payload;
+        return setLoading(
+          state,
+          'failed',
+          typeof payload === 'string' ? payload : 'Неизвестная ошибка'
+        );
+      }
     );
 };

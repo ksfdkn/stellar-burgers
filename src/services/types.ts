@@ -40,3 +40,12 @@ export interface IUserState {
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
   error: string | null;
 }
+
+export type TForgotPasswordData = {
+  email: string;
+};
+
+export type TResetPasswordData = {
+  password: string;
+  token: string;
+};

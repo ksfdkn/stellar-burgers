@@ -9,10 +9,12 @@ export const fetchUser = createAsyncThunk<TUser, void>(
       const response = await getUserApi();
 
       return response.user;
-    } catch (error: any) {
-      return rejectWithValue(
-        error.message || 'Ошибка получения данных пользователя'
-      );
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'Ошибка получения данных пользователя';
+      return rejectWithValue(message);
     }
   }
 );
@@ -24,8 +26,10 @@ export const updateUser = createAsyncThunk<TUser, Partial<TRegisterData>>(
       const response = await updateUserApi(data);
 
       return response.user;
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Ошибка обновления данных');
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : 'Ошибка обновления данных';
+      return rejectWithValue(message);
     }
   }
 );
@@ -37,8 +41,10 @@ export const fetchUserOrders = createAsyncThunk<TOrder[], void>(
       const response = await getOrdersApi();
 
       return response;
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Ошибка загрузки заказов');
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : 'Ошибка загрузки заказов';
+      return rejectWithValue(message);
     }
   }
 );

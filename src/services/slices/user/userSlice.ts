@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IUserState } from '../../types';
+import {
+  IUserState,
+  TForgotPasswordData,
+  TResetPasswordData
+} from '../../types';
 import { createThunkHandlers } from './helpers/createThunkHandlers';
 import { TOrder, TUser } from '@utils-types';
 import {
@@ -12,6 +16,7 @@ import {
   resetPassword,
   updateUser
 } from './thunks';
+import { TLoginData, TRegisterData } from '@api';
 
 const initialState = {
   user: null,
@@ -27,40 +32,52 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     //login
-    createThunkHandlers<TUser>(builder, loginUser, (state, action) => ({
-      ...state,
-      user: action.payload,
-      isAuth: true
-    }));
+    createThunkHandlers<TUser, TLoginData>(
+      builder,
+      loginUser,
+      (state, action) => ({
+        ...state,
+        user: action.payload,
+        isAuth: true
+      })
+    );
 
     //register
-    createThunkHandlers<TUser>(builder, registerUser, (state, action) => ({
-      ...state,
-      user: action.payload,
-      isAuth: true
-    }));
+    createThunkHandlers<TUser, TRegisterData>(
+      builder,
+      registerUser,
+      (state, action) => ({
+        ...state,
+        user: action.payload,
+        isAuth: true
+      })
+    );
 
     //forgot
-    createThunkHandlers<boolean>(builder, forgotPassword);
+    createThunkHandlers<boolean, TForgotPasswordData>(builder, forgotPassword);
 
     //reset
-    createThunkHandlers<boolean>(builder, resetPassword);
+    createThunkHandlers<boolean, TResetPasswordData>(builder, resetPassword);
 
     //fetch
-    createThunkHandlers<TUser>(builder, fetchUser, (state, action) => ({
+    createThunkHandlers<TUser, void>(builder, fetchUser, (state, action) => ({
       ...state,
       user: action.payload,
       isAuth: true
     }));
 
     //update
-    createThunkHandlers<TUser>(builder, updateUser, (state, action) => ({
-      ...state,
-      user: action.payload
-    }));
+    createThunkHandlers<TUser, Partial<TRegisterData>>(
+      builder,
+      updateUser,
+      (state, action) => ({
+        ...state,
+        user: action.payload
+      })
+    );
 
     //fetchUserOrders
-    createThunkHandlers<TOrder[]>(
+    createThunkHandlers<TOrder[], void>(
       builder,
       fetchUserOrders,
       (state, action) => ({

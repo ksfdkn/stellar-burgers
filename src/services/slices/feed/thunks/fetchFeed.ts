@@ -7,8 +7,12 @@ export const fetchFeed = createAsyncThunk<TFeedsResponse, void>(
     try {
       const response = await getFeedsApi();
       return response;
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Ошибка загрузки ленты заказов');
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'Ошибка загрузки ленты заказов';
+      return rejectWithValue(message);
     }
   }
 );

@@ -1,6 +1,10 @@
 import { useState, useCallback } from 'react';
 
-export function useForm<T extends Record<string, any>>(initialValues: T) {
+type FormValues = {
+  [key: string]: string | number | boolean | undefined;
+};
+
+export function useForm<T extends FormValues>(initialValues: T) {
   const [values, setValues] = useState<T>(initialValues);
 
   const handleChange = useCallback(

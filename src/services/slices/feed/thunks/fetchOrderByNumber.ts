@@ -8,8 +8,10 @@ export const fetchOrderByNumber = createAsyncThunk<TOrder, number>(
     try {
       const response = await getOrderByNumberApi(number);
       return response.orders[0];
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Ошибка загрузки заказа');
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : 'Ошибка загрузки заказа';
+      return rejectWithValue(message);
     }
   }
 );

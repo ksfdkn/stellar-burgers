@@ -10,15 +10,10 @@ import {
 } from '@api';
 import { TUser } from '@utils-types';
 import { deleteCookie, setCookie } from '../../../../utils/cookie';
-
-type TForgotPasswordData = {
-  email: string;
-};
-
-type TResetPasswordData = {
-  password: string;
-  token: string;
-};
+import {
+  TForgotPasswordData,
+  TResetPasswordData
+} from '../../../../services/types';
 
 export const loginUser = createAsyncThunk<TUser, TLoginData>(
   'user/auth/login',
@@ -30,8 +25,10 @@ export const loginUser = createAsyncThunk<TUser, TLoginData>(
       setCookie('accessToken', response.accessToken);
 
       return response.user;
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Ошибка авторизации');
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : 'Ошибка авторизации';
+      return rejectWithValue(message);
     }
   }
 );
@@ -44,8 +41,9 @@ export const logoutUser = createAsyncThunk(
 
       //localStorage.removeItem('refreshToken');
       deleteCookie('accessToken');
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Ошибка выхода');
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'Ошибка выхода';
+      return rejectWithValue(message);
     }
   }
 );
@@ -60,8 +58,10 @@ export const registerUser = createAsyncThunk<TUser, TRegisterData>(
       setCookie('accessToken', response.accessToken);
 
       return response.user;
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Ошибка регистрации');
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : 'Ошибка регистрации';
+      return rejectWithValue(message);
     }
   }
 );
@@ -73,8 +73,10 @@ export const forgotPassword = createAsyncThunk<boolean, TForgotPasswordData>(
       await forgotPasswordApi(data);
 
       return true;
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Ошибка восстановления пароля');
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : 'Ошибка восстановления пароля';
+      return rejectWithValue(message);
     }
   }
 );
@@ -86,8 +88,10 @@ export const resetPassword = createAsyncThunk<boolean, TResetPasswordData>(
       await resetPasswordApi(data);
 
       return true;
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Ошибка сброса пароля');
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : 'Ошибка сброса пароля';
+      return rejectWithValue(message);
     }
   }
 );
