@@ -6,6 +6,9 @@ import {
 import type { IUserState } from '../../../types';
 import { AsyncThunkConfig } from '@reduxjs/toolkit/dist/createAsyncThunk';
 
+// ежики кусали лис, а я в шоке, что зачем-то захотела поиграться
+// с паттернами. было лень писать от руки, а теперь сполна нахлебалась типизацией
+// и ведь работает... только не с logout
 type LoadingStatus = 'idle' | 'pending' | 'succeeded' | 'failed';
 
 type RejectedAction = {
