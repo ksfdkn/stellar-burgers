@@ -3,7 +3,7 @@ import { IIngredientsState } from 'src/services/types';
 import { fetchIngredients } from './thunks/fetchIngredients';
 import { TIngredient } from '@utils-types';
 
-const initialState = {
+export const initialState = {
   ingredients: [],
   loading: 'idle',
   error: null
@@ -37,7 +37,7 @@ const ingredientsSlice = createSlice({
         (state, action): IIngredientsState => ({
           ...state,
           loading: 'failed',
-          error: (action.payload as string) || 'Ошибка загрузки ингредиентов'
+          error: action.error?.message || 'Ошибка загрузки ингредиентов'
         })
       );
   }

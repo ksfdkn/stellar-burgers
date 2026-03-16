@@ -3,7 +3,7 @@ import { createOrder } from '../order/thunks/createOrder';
 import { IOrderState } from 'src/services/types';
 import { TOrder } from '@utils-types';
 
-const initialState = {
+export const initialState = {
   orderModalData: null,
   loading: 'idle',
   error: null

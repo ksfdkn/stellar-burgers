@@ -3,7 +3,7 @@ import { IBurgerConstructorState } from '../../types';
 import { TConstructorIngredient, TIngredient } from '@utils-types';
 import { nanoid } from '@reduxjs/toolkit';
 
-const initialState = {
+export const initialState = {
   bun: null,
   ingredients: [],
   error: null
