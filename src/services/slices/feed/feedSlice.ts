@@ -4,7 +4,7 @@ import { fetchFeed } from './thunks/fetchFeed';
 import { TOrder } from '@utils-types';
 import { fetchOrderByNumber } from './thunks/fetchOrderByNumber';
 
-const initialState = {
+export const initialState = {
   orders: [],
   currentOrder: null,
   total: 0,
@@ -78,7 +78,7 @@ const feedSlice = createSlice({
         (state, action): IFeedState => ({
           ...state,
           orderLoading: 'failed',
-          error: action.payload as string
+          error: action.error?.message || 'Ошибка загрузки заказа'
         })
       );
   }

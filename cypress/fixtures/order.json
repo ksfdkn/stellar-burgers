@@ -1,0 +1,19 @@
+{
+  "success": true,
+  "name": "Метеоритный флюоресцентный бургер",
+  "order": {
+    "_id": "69b7c821a64177001b32fcdf",
+    "status": "done",
+    "name":"Метеоритный флюоресцентный бургер",
+    "owner": {
+      "name": "test user",
+      "email": "test@example.com",
+      "createdAt": "2026-03-12T20:42:53.638Z",
+      "updatedAt": "2026-03-12T20:42:53.962Z"
+    },
+    "createdAt": "2026-03-16T09:06:41.669Z",
+    "updatedAt": "2026-03-16T09:06:41.927Z",
+    "number": 12456,
+    "price": 123456
+  }
+}

@@ -18,7 +18,7 @@ import {
 } from './thunks';
 import { TLoginData, TRegisterData } from '@api';
 
-const initialState = {
+export const initialState = {
   user: null,
   orders: [],
   isAuth: false,
